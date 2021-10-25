@@ -84,14 +84,12 @@ describe("Проверка вёрстки", async () => {
     it("Мобильные контакты (клик)", async function() {
         await this.browser.setWindowSize(500, 1024);
         await this.browser.url('https://shri.yandex/hw/store/contacts');
-        await(3500);
+        await sleep(1200);
         await this.browser.$('.container').scrollIntoView();
         const button = await this.browser.$('button.Application-Toggler');
         await button.waitForClickable();
         await button.click();
-        await(2000);
-        await this.browser.$('.container').scrollIntoView();
-        await(2000);
+        await sleep(1200);
         await this.browser.assertView('contacts-mini-click', '#root', {
             ignoreElements: ['.navbar-nav a:last-child'],
         });
