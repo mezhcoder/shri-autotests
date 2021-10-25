@@ -5,7 +5,7 @@ function sleep(ms) {
 }
 
 describe('Корзина', async function() {
-    it('Проверка оформления заказа', async function() {
+    it('Проверка оформления заказа + верстка', async function() {
         //Проверка добавления и очищения элементов
         await this.browser.url('https://shri.yandex/hw/store/catalog');
 
@@ -21,6 +21,10 @@ describe('Корзина', async function() {
         let spanSuccessAddItem = await this.browser.$(".text-success");
         let spanSuccessAddItemText = await spanSuccessAddItem.getText();
         assert.equal(spanSuccessAddItemText, 'Item in cart');
+
+        await sleep(600);
+        await this.browser.assertView('itemShop-check', '#root');
+
 
         await this.browser.url('https://shri.yandex/hw/store/cart');
         await sleep(550);
@@ -48,6 +52,8 @@ describe('Корзина', async function() {
         assert.equal(spanSuccessAddItemText, 'Item in cart');
 
         await this.browser.url('https://shri.yandex/hw/store/cart')
+        this.browser.refresh();
+
         let inputName = await this.browser.$('.Form-Field_type_name')
         await sleep(250);
         await inputName.scrollIntoView();
@@ -70,6 +76,7 @@ describe('Корзина', async function() {
         await sleep(250);
         const btnCheckout = await this.browser.$('.Form-Submit');
         await btnCheckout.scrollIntoView();
+
         await sleep(250);
         await btnCheckout.click();
 
