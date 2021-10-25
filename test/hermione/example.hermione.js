@@ -81,7 +81,16 @@ describe('Корзина', async function() {
 
 
 describe("Проверка вёрстки", async () => {
-    it("Мобильные контакты (клик)", async function() {
+     it("Desktop версия mainPage", async function() {
+        await this.browser.refresh();
+        await this.browser.setWindowSize(1024, 3048);
+        await this.browser.url('https://shri.yandex/hw/store/');
+        await sleep(3000);
+        await this.browser.assertView('store-full-click', '#root');
+    });
+
+    it("Мобильная вёрстка contacts", async function() {
+        await this.browser.refresh();
         await this.browser.setWindowSize(500, 1024);
         await this.browser.url('https://shri.yandex/hw/store/contacts');
         await sleep(1200);
@@ -90,8 +99,6 @@ describe("Проверка вёрстки", async () => {
         await button.waitForClickable();
         await button.click();
         await sleep(1200);
-        await this.browser.assertView('contacts-mini-click', '#root', {
-            ignoreElements: ['.navbar-nav a:last-child'],
-        });
+        await this.browser.assertView('contacts-mini-click', '#root');
     });
 });
