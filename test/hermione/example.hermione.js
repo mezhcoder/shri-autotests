@@ -9,8 +9,8 @@ describe('Корзина', async function() {
         //Проверка добавления и очищения элементов + проверка общей стоимости
         //добавляем первый элемент
         await this.browser.url('https://shri.yandex/hw/store/catalog');
-        let linkDetails = await this.browser.$('.card-link');
         await sleep(200);
+        let linkDetails = await this.browser.$('.card-link');
         await linkDetails.click();
 
         let btnAddCard = await this.browser.$('.ProductDetails-AddToCart');
@@ -21,8 +21,6 @@ describe('Корзина', async function() {
         await sleep(200);
         let price = await elementPrice.getText();
         price = price.toString().replace("$", "");
-
-        await sleep(200);
         await this.browser.assertView('item-check', '#root');
 
         //добавляем второй элемент в корзину
@@ -130,4 +128,19 @@ describe("Проверка вёрстки", async () => {
         await sleep(1200);
         await this.browser.assertView('contacts-mini-click', '#root');
     });
+
+    it('Корзина', async function() {
+        await this.browser.url('https://shri.yandex/hw/store/cart');
+        await sleep(100);
+        await this.browser.$('.col').scrollIntoView();
+        await this.browser.assertView('cart-default', '.col');
+    })
+    it('Мобильная корзина', async function() {
+        await this.browser.setWindowSize(500, 1024);
+        await this.browser.url('https://shri.yandex/hw/store/cart');
+        await sleep(100);
+        await this.browser.$('.col').scrollIntoView();
+        await this.browser.assertView('cart-mini-default', '.col');
+    })
+
 });
