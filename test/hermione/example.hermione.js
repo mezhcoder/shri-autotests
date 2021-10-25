@@ -5,74 +5,75 @@ function sleep(ms) {
 }
 
 describe('Корзина', async function() {
-    it('Проверка добавления и очищения элементов', async function() {
+    it('Проверка оформления заказа', async function() {
+        //Проверка добавления и очищения элементов
         await this.browser.url('https://shri.yandex/hw/store/catalog');
 
         let link = await this.browser.$(".card-link");
-        await link.waitForExist({ timeout: 2000 })
+        await link.waitForExist({ timeout: 1500 })
         link.click();
-        await sleep(500);
+        await sleep(400);
 
-        const button = await this.browser.$("//button[text()='Add to Cart']");
+        let button = await this.browser.$("//button[text()='Add to Cart']");
         button.click();
-        await sleep(500);
+        await sleep(400);
 
-        const spanSuccessAddItem = await this.browser.$(".text-success");
-        const spanSuccessAddItemText = await spanSuccessAddItem.getText();
+        let spanSuccessAddItem = await this.browser.$(".text-success");
+        let spanSuccessAddItemText = await spanSuccessAddItem.getText();
         assert.equal(spanSuccessAddItemText, 'Item in cart');
 
         await this.browser.url('https://shri.yandex/hw/store/cart');
-        await sleep(750);
-        const btnClearCart = await this.browser.$("//button[text()='Clear shopping cart']");
+        await sleep(550);
+        let btnClearCart = await this.browser.$("//button[text()='Clear shopping cart']");
         btnClearCart.click();
-        await sleep(500);
+        await sleep(400);
 
-        const linkCatalog = await this.browser.$("//a[text()='catalog']");
+        let linkCatalog = await this.browser.$("//a[text()='catalog']");
         assert.equal(await linkCatalog.getAttribute('href'), "/hw/store/catalog")
-    });
-    it('Проверка оформления заказа', async function() {
+
+        //Проверка оформления заказа
         await this.browser.url('https://shri.yandex/hw/store/catalog');
 
-        let link = await this.browser.$(".card-link");
-        await link.waitForExist({ timeout: 2000 })
+        link = await this.browser.$(".card-link");
+        await link.waitForExist({ timeout: 1500 })
         link.click();
-        await sleep(500);
+        await sleep(400);
 
-        const button = await this.browser.$("//button[text()='Add to Cart']");
+        button = await this.browser.$("//button[text()='Add to Cart']");
         button.click();
-        await sleep(500);
+        await sleep(400);
 
-        const spanSuccessAddItem = await this.browser.$(".text-success");
-        const spanSuccessAddItemText = await spanSuccessAddItem.getText();
+        spanSuccessAddItem = await this.browser.$(".text-success");
+        spanSuccessAddItemText = await spanSuccessAddItem.getText();
         assert.equal(spanSuccessAddItemText, 'Item in cart');
 
         await this.browser.url('https://shri.yandex/hw/store/cart')
         let inputName = await this.browser.$('.Form-Field_type_name')
-        await sleep(300);
+        await sleep(250);
         await inputName.scrollIntoView();
         await inputName.click();
         await inputName.keys(["Nikita"]);
 
         let inputPhone = await this.browser.$('.Form-Field_type_phone');
-        await sleep(300);
+        await sleep(250);
         await inputPhone.scrollIntoView();
         await inputPhone.click();
         await inputPhone.keys(["81234567890"]);
 
         let formAddress = await this.browser.$('.Form-Field_type_address');
-        await sleep(300);
+        await sleep(250);
         await formAddress.scrollIntoView();
         await this.browser.waitUntil(() => formAddress.isClickable(), 700);
         await formAddress.click();
         await formAddress.keys(["Test address"]);
 
-        await sleep(300);
+        await sleep(250);
         const btnCheckout = await this.browser.$('.Form-Submit');
         await btnCheckout.scrollIntoView();
-        await sleep(300);
+        await sleep(250);
         await btnCheckout.click();
 
-        await sleep(500);
+        await sleep(450);
         const alertHeading = await this.browser.$('.alert-heading');
         assert.equal(await alertHeading.getText(), 'Well done!');
     });
@@ -80,17 +81,10 @@ describe('Корзина', async function() {
 
 
 describe("Проверка вёрстки", async () => {
-    it("Мобильные контакты", async function() {
-        await this.browser.setWindowSize(500, 1024);
-        await this.browser.url('https://shri.yandex/hw/store/contacts');
-        await(2000);
-        await this.browser.assertView('contacts-mini', '#root');
-    });
-
     it("Мобильные контакты (клик)", async function() {
         await this.browser.setWindowSize(500, 1024);
         await this.browser.url('https://shri.yandex/hw/store/contacts');
-        await(2000);
+        await(3500);
         await this.browser.$('.container').scrollIntoView();
         const button = await this.browser.$('button.Application-Toggler');
         await button.waitForClickable();
