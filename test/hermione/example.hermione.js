@@ -8,7 +8,6 @@ describe('Корзина', async function() {
     it('Проверка оформления заказа + верстка', async function() {
         //Проверка добавления и очищения элементов + проверка общей стоимости
         //добавляем первый элемент
-
         await this.browser.url('https://shri.yandex/hw/store/catalog');
         await sleep(200);
         let linkDetails = await this.browser.$('.card-link');
